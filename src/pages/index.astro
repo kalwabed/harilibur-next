@@ -1,10 +1,16 @@
 ---
+import AllHolidays from '~components/all-holidays.astro'
+import UpcomingHolidays from '~components/upcoming-holidays.astro'
 import Layout from '~layouts/layout.astro'
+import dateExtractor from '~utils/date-extractor'
+import { getHolidays } from '~utils/fetcher'
+
+const holidays = await getHolidays()
+const extractedHoliday = dateExtractor(holidays)
+console.log('🚀 ~ file: index.astro ~ line 9 ~ extractedHoliday', extractedHoliday)
 ---
 
-<Layout title='Welcome to Astro.'>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum in hic enim totam consequatur, tempora ullam deleniti
-  assumenda aut nobis quae eius modi et perspiciatis? Dolor fugit iusto omnis sint.
+<Layout title='Harilibur | Hari libur nasional dan hari besar di Indonesia'>
+  <UpcomingHolidays upcomingHolidays={extractedHoliday.upcomings} headerTitle='Bulan Ini' />
+  <AllHolidays headerTitle='Bulan Depan' holidays={extractedHoliday.nextMonths} />
 </Layout>
-
-<style></style>

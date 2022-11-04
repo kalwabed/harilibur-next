@@ -5,7 +5,7 @@ import { today } from '~utils/date-formatter'
 export interface Props {
   title: string
 }
-
+const canonicalURL = new URL(Astro.url)
 const { title } = Astro.props
 ---
 
@@ -16,6 +16,7 @@ const { title } = Astro.props
     <meta name='viewport' content='width=device-width' />
     <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
     <meta name='generator' content={Astro.generator} />
+    <link rel='canonical' href={canonicalURL} />
     <title>{title}</title>
   </head>
   <body>

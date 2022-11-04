@@ -1,0 +1,23 @@
+---
+export interface Props {
+  month: string
+}
+
+const { month } = Astro.props
+---
+
+<div class='month_wrapper'>
+  <h3 class='month'>{month}</h3>
+  <slot />
+</div>
+
+<style>
+  .month {
+    margin: 0.5rem 0;
+    font-size: large;
+  }
+
+  .month_wrapper {
+    margin-bottom: 1.3rem;
+  }
+</style>

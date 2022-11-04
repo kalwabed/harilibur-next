@@ -1,0 +1,45 @@
+---
+import { isAfterEvent, toDateDay, toDateNumber } from '~utils/date-formatter'
+import Card from './card.astro'
+
+export interface Props {
+  holidayDate: string
+  holidayName: string
+}
+
+const { holidayDate, holidayName } = Astro.props
+---
+
+<Card isAfterEvent={isAfterEvent(holidayDate)}>
+  <div class='card_sider' slot='card'>
+    <p class='date_day'>{toDateDay(holidayDate)}</p>
+    <p class='date_number'>{toDateNumber(holidayDate)}</p>
+  </div>
+  <p slot='body'>{holidayName}</p>
+</Card>
+
+<style>
+  .date_day {
+    font-size: small;
+  }
+
+  .date_number {
+    font-size: large;
+    font-weight: bold;
+  }
+
+  .card_sider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0.3rem;
+    width: 15%;
+  }
+
+  @media (min-width: 768px) {
+    .date_number {
+      font-size: xx-large;
+    }
+  }
+</style>

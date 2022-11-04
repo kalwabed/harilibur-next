@@ -1,0 +1,30 @@
+---
+import type { HolidayFetcher } from '~utils/fetcher'
+import CardPreview from './card-preview.astro'
+import Card from './card.astro'
+import GridWrapper from './grid-wrapper.astro'
+
+export interface Props {
+  headerTitle: string
+  upcomingHolidays: HolidayFetcher[]
+}
+
+const { upcomingHolidays, headerTitle } = Astro.props
+const filteredHolidays = upcomingHolidays?.filter(upcome => upcome.is_national_holiday)
+---
+
+<GridWrapper headerTitle={headerTitle}>
+  {
+    filteredHolidays.length === 0 && (
+      <Card isAfterEvent>
+        <p slot='body'>Tidak ada</p>
+      </Card>
+    )
+  }
+
+  {
+    filteredHolidays.map(holiday => (
+      <CardPreview holidayDate={holiday.holiday_date} holidayName={holiday.holiday_name} />
+    ))
+  }
+</GridWrapper>

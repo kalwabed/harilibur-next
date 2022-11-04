@@ -1,0 +1,46 @@
+---
+import { toMonth } from '~utils/date-formatter'
+import type { HolidayFetcher } from '~utils/fetcher'
+import CardPreview from './card-preview.astro'
+import GridWrapper from './grid-wrapper.astro'
+import Month from './month.astro'
+
+export interface Props {
+  headerTitle: string
+  holidays: HolidayFetcher[]
+}
+
+const { headerTitle, holidays } = Astro.props
+
+const holidayResult: { [month: string]: HolidayFetcher[] } = {}
+const filteredHolidays = holidays.filter(holiday => holiday.is_national_holiday)
+
+filteredHolidays.filter(holiday => {
+  const month = toMonth(holiday.holiday_date)
+
+  holidayResult[month] ? holidayResult[month].push(holiday) : (holidayResult[month] = [holiday])
+})
+---
+
+<GridWrapper headerTitle={headerTitle}>
+  {Object.keys(holidayResult).length === 0 && <p class='not_available' />}
+
+  {
+    Object.keys(holidayResult)?.map((month, index) => {
+      return (
+        <Month month={month}>
+          {Object.values(holidayResult)[index]?.map(data => (
+            <CardPreview holidayDate={data.holiday_date} holidayName={data.holiday_name} />
+          ))}
+        </Month>
+      )
+    })
+  }
+</GridWrapper>
+
+<style>
+  .not_available {
+    font-size: small;
+    color: var(--gray11);
+  }
+</style>
