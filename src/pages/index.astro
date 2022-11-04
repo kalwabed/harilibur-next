@@ -10,7 +10,7 @@ const holidays = await getHolidays()
 const extractedHoliday = dateExtractor(holidays)
 ---
 
-<Layout title='Harilibur | Hari libur nasional dan hari besar di Indonesia'>
+<Layout title='Hari libur nasional dan hari besar di Indonesia'>
   <UpcomingHolidays upcomingHolidays={extractedHoliday.upcomings} headerTitle='Bulan Ini' />
   <AllHolidays headerTitle='Bulan Depan' holidays={extractedHoliday.nextMonths} />
 

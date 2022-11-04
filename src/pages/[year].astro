@@ -1,0 +1,23 @@
+---
+import AllHolidays from '~components/all-holidays.astro'
+import Navigation from '~components/navigation.astro'
+import Layout from '~layouts/layout.astro'
+import { getHolidays } from '~utils/fetcher'
+
+export function getStaticPaths() {
+  const years = ['2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030']
+
+  return years.map(year => ({
+    params: { year }
+  }))
+}
+
+const { year } = Astro.params
+
+const holidays = await getHolidays(`?year=${year}`)
+---
+
+<Layout title={`${year} | Hari libur nasional dan hari besar di Indonesia`}>
+  <AllHolidays headerTitle={year as string} holidays={holidays} />
+  <Navigation type='current' />
+</Layout>
