@@ -1,0 +1,61 @@
+---
+export interface Props {
+  type: 'next' | 'current'
+}
+
+const { type } = Astro.props
+---
+
+{
+  type === 'next' ? (
+    <div class='wrapper'>
+      <a href={`/${new Date().getFullYear() + 1}`}>
+        <svg fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+          <path stroke-line-cap='round' stroke-linejoin='round' stroke-width={2} d='M14 5l7 7m0 0l-7 7m7-7H3' />
+        </svg>
+        <span>Tahun {new Date().getFullYear() + 1}</span>
+      </a>
+    </div>
+  ) : (
+    <div class='wrapper start'>
+      <a href='/'>
+        <svg fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+          <path stroke-line-cap='round' stroke-linejoin='round' stroke-width={2} d='M10 19l-7-7m0 0l7-7m-7 7h18' />
+        </svg>
+        <span>Tahun Sekarang</span>
+      </a>
+    </div>
+  )
+}
+
+<style>
+  .wrapper {
+    max-width: 32rem;
+    width: 100%;
+    margin: 1rem auto 2rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .start {
+    justify-content: flex-start;
+  }
+
+  a {
+    padding: 0.5rem 1rem;
+    border-radius: 2;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--gray6);
+  }
+
+  a:hover {
+    background-color: var(--gray4);
+  }
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+  }
+</style>

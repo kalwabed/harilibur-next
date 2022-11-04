@@ -1,5 +1,6 @@
 ---
 import AllHolidays from '~components/all-holidays.astro'
+import Navigation from '~components/navigation.astro'
 import UpcomingHolidays from '~components/upcoming-holidays.astro'
 import Layout from '~layouts/layout.astro'
 import dateExtractor from '~utils/date-extractor'
@@ -7,10 +8,11 @@ import { getHolidays } from '~utils/fetcher'
 
 const holidays = await getHolidays()
 const extractedHoliday = dateExtractor(holidays)
-console.log('🚀 ~ file: index.astro ~ line 9 ~ extractedHoliday', extractedHoliday)
 ---
 
 <Layout title='Harilibur | Hari libur nasional dan hari besar di Indonesia'>
   <UpcomingHolidays upcomingHolidays={extractedHoliday.upcomings} headerTitle='Bulan Ini' />
   <AllHolidays headerTitle='Bulan Depan' holidays={extractedHoliday.nextMonths} />
+
+  <Navigation type='next' />
 </Layout>
