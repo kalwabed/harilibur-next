@@ -12,6 +12,7 @@
     "fmt": "prettier --write 'src/**/*.{astro,js,ts,css}'"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^1.0.0",
     "@fontsource/inter": "^4.5.14",
     "astro": "^1.6.0",
     "date-fns": "^2.29.3"
